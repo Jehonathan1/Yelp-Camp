@@ -1,0 +1,64 @@
+<% layout('layouts/boilerplate') %> 
+
+<div class="row">
+    <h1 class="text-center">Edit <%= camp.title %> Campground</h1>
+    <div class="col-6 offset-3">
+
+        <form action="/campgrounds/<%= camp._id %>?_method=put" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+
+            <!-- Edit Title -->
+            <div class="mb-3">
+                <!-- Make sure to match the upper/lowercase to the campground model! -->
+                <label class="form-label" for="title">Edit Title</label>
+                <input class="form-control" type="text" name="title" id="title" placeholder="Title" value="<%= camp.title %>" required> 
+            </div>
+
+            <!-- Edit Location -->
+            <div class="mb-3">
+                <label class="form-label" for="location">Edit Location</label>
+                <input class="form-control" type="text" name="location" id="location" placeholder="Location" value="<%= camp.location %>" required>
+            </div>
+
+            <!-- Edit Image URL -->
+            <div class="mb-3">
+                <label class="form-label" for="image">Edit Image Url</label>
+                <input class="form-control" type="file" name="image" id="image" value="<%= camp.images[0].filename %>>
+            </div>
+
+            <div class="mb-3">
+                <img src="<%= camp.images[camp.images.length-1].url %> " class="img-thumbnail" alt="">
+
+                <% if (camp.images.length>1) { %> 
+                    <div class="form-check-inline">
+                        <input type="checkbox" id="deleteImage" name="deleteImage[]" value="<%= camp.images[0].filename %> ">
+                        <label for="deleteImage">Delete image</label>
+                    </div>
+                <% } %> 
+            </div>
+            
+            <!-- Edit Price -->
+            <div class="mb-3">
+                <label class="form-label" for="price">Edit Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="0.00" aria-label="price-label" aria-describedby="price-label" value="<%= camp.price %>" required>
+                  </div>
+            </div>
+            
+            <!-- Edit Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Edit Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required><%= camp.description %></textarea>
+              </div>
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-primary">Update Campground</button>
+                <a class="btn btn-outline-danger" href="/campgrounds/<%= camp._id%> " role="button">Cancel</a>
+            </div>
+        
+        </form>
+
+    </div>
+</div>
+
